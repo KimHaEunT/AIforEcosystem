@@ -1,9 +1,0 @@
-streamlit
-pandas
-numpy
-matplotlib
-scikit-learn
-folium
-streamlit-folium
-streamlit-sortables
-matplotlib.pyplot
