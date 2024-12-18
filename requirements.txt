@@ -5,3 +5,4 @@ Pillow==9.3.0
 matplotlib==3.7.1
 folium==0.14.0
 streamlit-sortables==0.10.0
+sklearn
