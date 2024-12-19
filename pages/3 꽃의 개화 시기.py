@@ -6,6 +6,7 @@ from streamlit_sortables import sort_items
 from PIL import Image
 import matplotlib.pyplot as plt
 from matplotlib import rc
+import os
 
 import folium
 from folium.plugins import HeatMap
