@@ -15,9 +15,13 @@ from folium.features import DivIcon
 
 import matplotlib.font_manager as fm
 
-# 한국어 폰트 설정
-rc('font', family='Malgun Gothic')
-plt.rcParams['axes.unicode_minus'] = False  # 한글 폰트 사용 시 마이너스 기호 깨짐 방지
+# 현재 파일의 디렉토리 기준으로 폰트 경로 설정
+font_path = os.path.join(os.path.dirname(__file__), 'fonts', 'NanumGothic.ttf')
+font_prop = fm.FontProperties(fname=font_path)
+
+# 폰트 설정
+plt.rc('font', family=font_prop.get_name())
+plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
 
 
 st.set_page_config(
