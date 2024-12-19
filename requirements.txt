@@ -8,3 +8,4 @@ streamlit-folium
 Pillow
 folium
 streamlit-sortables
+os
