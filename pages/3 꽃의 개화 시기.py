@@ -15,18 +15,19 @@ from folium.features import DivIcon
 
 import matplotlib.font_manager as fm
 
-# 현재 작업 디렉토리 기반으로 폰트 경로 설정
-font_path = os.path.join(os.getcwd(), 'fonts', 'malgun.ttf')
+# 현재 디렉토리 기준으로 폰트 경로 설정
+font_path = os.path.join('./fonts', 'malgun.ttf')
+
+# 폰트 파일 존재 여부 확인
 if not os.path.exists(font_path):
     raise FileNotFoundError(f"폰트 파일을 찾을 수 없습니다: {font_path}")
 
+# 폰트 속성 설정
 font_prop = fm.FontProperties(fname=font_path)
 
-# matplotlib 설정
+# matplotlib 폰트 설정
 plt.rc('font', family=font_prop.get_name())
 plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
-
-
 
 st.set_page_config(
     page_title = "AI for Ecosystem",
