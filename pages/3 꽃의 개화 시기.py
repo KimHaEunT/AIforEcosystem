@@ -15,13 +15,17 @@ from folium.features import DivIcon
 
 import matplotlib.font_manager as fm
 
-# 현재 파일의 디렉토리 기준으로 폰트 경로 설정
-font_path = os.path.join(os.path.dirname(__file__), 'fonts', 'NanumGothic.ttf')
+# 현재 작업 디렉토리 기반으로 폰트 경로 설정
+font_path = os.path.join(os.getcwd(), 'fonts', 'malgun.ttf')
+if not os.path.exists(font_path):
+    raise FileNotFoundError(f"폰트 파일을 찾을 수 없습니다: {font_path}")
+
 font_prop = fm.FontProperties(fname=font_path)
 
-# 폰트 설정
+# matplotlib 설정
 plt.rc('font', family=font_prop.get_name())
 plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
+
 
 
 st.set_page_config(
