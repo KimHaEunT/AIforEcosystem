@@ -6,7 +6,6 @@ from streamlit_sortables import sort_items
 from PIL import Image
 import matplotlib.pyplot as plt
 from matplotlib import rc
-import os
 
 import folium
 from folium.plugins import HeatMap
@@ -16,21 +15,10 @@ from folium.features import DivIcon
 
 import matplotlib.font_manager as fm
 
-# 현재 파일의 절대 경로 기준으로 폰트 경로 설정
-current_dir = os.path.dirname(os.path.abspath(__file__))
-font_path = os.path.join(current_dir, 'fonts', 'malgun.ttf')
+# 한국어 폰트 설정
+rc('font', family='Malgun Gothic')
+plt.rcParams['axes.unicode_minus'] = False  # 한글 폰트 사용 시 마이너스 기호 깨짐 방지
 
-# 폰트 파일 존재 여부 확인
-if not os.path.exists(font_path):
-    raise FileNotFoundError(f"폰트 파일을 찾을 수 없습니다: {font_path}")
-
-# matplotlib 폰트 설정
-font_prop = fm.FontProperties(fname=font_path)
-plt.rc('font', family=font_prop.get_name())
-plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
-# matplotlib 폰트 설정
-plt.rc('font', family=font_prop.get_name())
-plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
 
 st.set_page_config(
     page_title = "AI for Ecosystem",
