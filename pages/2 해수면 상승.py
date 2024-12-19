@@ -54,18 +54,21 @@ st.divider()
 # 10년 단위 상승률 계산
 st.subheader("1.3. 10년 단위 평균 해수면 상승률")
 st.write("10년 단위로 평균 해수면 상승률을 알아봅시다.")
+
+# 10년 단위 데이터 계산
 df["Decade"] = (df["Year"] // 10) * 10
 summary = df.groupby("Decade")["sealevel(cm)"].mean().diff().dropna()
+
+# 계산된 데이터 출력
 st.write(summary)
 
 # 10년 단위 상승률 그래프
-fig, ax = plt.subplots()
-summary.plot(kind='bar', ax=ax, color='skyblue', edgecolor='black')
-ax.set_title("10년 단위 평균 해수면 상승률")
-ax.set_xlabel("연대(decade)")
-ax.set_ylabel("해수면 상승률 (cm)")
-ax.grid(axis='y', linestyle='--', alpha=0.7)
-st.pyplot(fig)
+st.bar_chart(
+    data=summary,
+    use_container_width=True,
+    height=400,
+)
+
 st.write("❓평균 해수면은 어떻게 변하고 있나요?")
 st.divider()
 
