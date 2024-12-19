@@ -141,33 +141,14 @@ if selected_button == "1. 평균 기온":
 
     # 데이터 병합 (공통 연도 기준)
     merged_data = pd.merge(temp_data, flowers_data, left_on="연도", right_on="년도", how="inner")
+    merged_data = merged_data.set_index("연도")
 
-    # 시각화
-    fig, ax1 = plt.subplots(figsize=(10, 6))
-
-    # 평균 기온 꺾은선 그래프
-    ax1.plot(merged_data["연도"], merged_data["평균기온(℃)"], color="red", label="평균기온(℃)", linewidth=2)
-    ax1.set_xlabel("연도", fontsize=12)
-    ax1.set_ylabel("평균기온(℃)", fontsize=12, color="red")
-    ax1.tick_params(axis="y", labelcolor="red")
-
-    # 개화 시기 추가 (개나리, 진달래, 벚꽃)
-    ax2 = ax1.twinx()  # 두 번째 y축
-    ax2.plot(merged_data["연도"], merged_data["개나리"], color="orange", label="개나리 개화", linestyle="--")
-    ax2.plot(merged_data["연도"], merged_data["진달래"], color="purple", label="진달래 개화", linestyle="--")
-    ax2.plot(merged_data["연도"], merged_data["벚꽃"], color="pink", label="벚꽃 개화", linestyle="--")
-    ax2.set_ylabel("개화 시기 (편차)", fontsize=12, color="blue")
-    ax2.tick_params(axis="y", labelcolor="blue")
-
-    # y축 범위 설정 (-20 ~ 20)
-    ax2.set_ylim(-20, 20)
-    ax2.invert_yaxis()  # y축 반전
-
-    # 범례 추가
-    fig.legend(loc="upper left", bbox_to_anchor=(0.1, 0.9))
-
-    # 그래프 출력
-    st.pyplot(fig)
+    # Streamlit 그래프 사용
+    st.line_chart(
+        merged_data[["평균기온(℃)", "개나리", "진달래", "벚꽃"]],
+        height=500,
+        use_container_width=True
+    )
 
 elif selected_button == "2. CO₂ 농도 변화":
     st.subheader("데이터를 다시 선택해봅시다.")
