@@ -91,21 +91,28 @@ fig, ax = plt.subplots(figsize=(12, 6))
 # 컬러 매핑
 colors = {"개나리": "yellow", "진달래": "magenta", "벚꽃": "pink"}
 
-# 데이터 시각화
-if show_trend:
-    # 추세선 포함된 데이터 생성
-    trend_data = pd.DataFrame()
-    for column in df.columns[1:]:
-        if column in colors:
-            z = np.polyfit(df['년도'], df[column], 1)  # 1차 다항식
+# 각 꽃에 대해 그래프 그리기
+for column in df.columns[1:]:
+    if column in colors:
+        # 원래 데이터 플롯
+        ax.plot(df['년도'], df[column], label=column, color=colors[column])
+        
+        # 추세선 추가 (버튼 클릭 시)
+        if show_trend:
+            z = np.polyfit(df['년도'], df[column], 1)  # 1차원 다항식 추세선
             p = np.poly1d(z)
-            trend_data[f"{column} 추세선"] = p(df['년도'])
-    trend_data['년도'] = df['년도']
-    df_plot = pd.concat([df.set_index('년도'), trend_data.set_index('년도')], axis=1)
-    st.line_chart(data=df_plot)
-else:
-    # 기본 데이터 시각화
-    st.line_chart(data=df.set_index('년도'))
+            ax.plot(df['년도'], p(df['년도']), linestyle="--", color=colors[column], alpha=0.7, label=f"{column} 추세선")
+
+# 그래프 설정
+ax.set_title('개나리, 진달래, 벚꽃의 평년 편차 (일)', fontsize=14)
+ax.set_xlabel('연도', fontsize=12)
+ax.set_ylabel('평년 편차 (일)', fontsize=12)
+ax.invert_yaxis()  # Y축 방향 반전
+ax.legend(title='꽃 종류', loc='lower right', frameon=False)
+ax.grid(axis='y', linestyle='--', alpha=0.7)
+
+#그래프 표시
+st.pyplot(fig)
 
 st.write("❓봄꽃의 개화 시기는 어떻게 변하고 있나요?🌸")
 
